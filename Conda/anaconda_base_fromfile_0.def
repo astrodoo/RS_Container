@@ -1,0 +1,43 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%files
+	Anaconda3-2025.12-1-Linux-x86_64.sh	/tmp/Anaconda3-2025.12-1-Linux-x86_64.sh
+
+%post
+	# Install system dependencies needed for conda installation
+	apt-get update -y
+	apt-get install -y wget bash curl make gcc libgl1 libglib2.0-0
+
+	# Define installation directory
+	export CONDA_INSTALL_PATH=/opt/anaconda3
+
+	# Anaconda Version
+	export CONDA_INSTALLER=/tmp/Anaconda3-2025.12-1-Linux-x86_64.sh
+
+	# Install Anaconda installer script
+	# Use -b for batch mode (no prompts) and -p for the installation path
+	bash $CONDA_INSTALLER -b -p $CONDA_INSTALL_PATH
+	rm $CONDA_INSTALLER
+
+	# Clean up apt lists to reduce image size
+	apt-get clean
+	rm -rf /var/lib/apt/lists/*
+	rm $CONDA_INSTALLER
+
+%environment
+	# Set environment variables for runtime
+    export CONDA_INSTALL_PATH=/opt/anaconda3
+    export PATH="$CONDA_INSTALL_PATH/bin:$PATH"
+
+    # Ensure conda is initialized when the container runs
+    . $CONDA_INSTALL_PATH/etc/profile.d/conda.sh
+
+%runscript
+    # Default command when running the container (e.g., drops into a shell)
+    echo "Conda environment ready. To activate run 'conda activate base'."
+    exec /bin/bash --norc
+
+%labels
+	Maintainer "Doosoo Yoon"
+	Version "1.0"

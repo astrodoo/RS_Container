@@ -1,0 +1,16 @@
+Bootstrap: docker
+From: centos:centos7
+
+%post
+  # Install any desired packages
+  yum update -y
+  yum install -y epel-release
+  yum install -y vim git
+
+  # clean up yum caches
+  yum clean all
+
+%runscript
+  # Commands to execute when the container is run
+  echo "Running the CentOS Container"
+  /bin/bash
