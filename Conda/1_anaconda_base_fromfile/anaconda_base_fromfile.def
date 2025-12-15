@@ -2,7 +2,8 @@ Bootstrap: docker
 From: ubuntu:24.04
 
 %files
-	Anaconda3-2025.12-1-Linux-x86_64.sh	/tmp/Anaconda3-2025.12-1-Linux-x86_64.sh
+	hey.txt /tmp/hey.txt	
+	Anaconda3-2025.12-1-Linux-x86_64.sh	/usr/local/Anaconda3-2025.12-1-Linux-x86_64.sh
 
 %post
 	# Install system dependencies needed for conda installation
@@ -13,12 +14,11 @@ From: ubuntu:24.04
 	export CONDA_INSTALL_PATH=/opt/anaconda3
 
 	# Anaconda Version
-	export CONDA_INSTALLER=/tmp/Anaconda3-2025.12-1-Linux-x86_64.sh
+	export CONDA_INSTALLER=/usr/local/Anaconda3-2025.12-1-Linux-x86_64.sh
 
 	# Install Anaconda installer script
 	# Use -b for batch mode (no prompts) and -p for the installation path
 	bash $CONDA_INSTALLER -b -p $CONDA_INSTALL_PATH
-	rm $CONDA_INSTALLER
 
 	# Clean up apt lists to reduce image size
 	apt-get clean

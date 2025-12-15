@@ -41,3 +41,7 @@ From: ubuntu:24.04
     # Default command when running the container (e.g., drops into a shell)
     echo "Conda environment ready. To activate run 'conda activate base'."
     exec /bin/bash --norc
+
+%labels
+	Maintainer "Doosoo Yoon"
+	Version "1.0"
