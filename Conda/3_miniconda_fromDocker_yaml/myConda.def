@@ -1,0 +1,27 @@
+Bootstrap: docker
+From: continuumio/miniconda3
+
+%files
+	my_env.yml /my_env.yml
+
+%post
+	# Initialize conda environment variables
+	. /opt/conda/etc/profile.d/conda.sh
+
+	# Create the environment from the file
+	conda env create -f /my_env.yml -p /opt/conda/envs/myenv
+
+	# Clean up conda cache to reduce image size
+	conda clean --all
+
+%environment
+	# Set environment variables for automatic activation
+	. /opt/conda/etc/profile.d/conda.sh
+	conda activate myenv
+
+	# Ensure the environment is added to the PATH
+	export PATH="/opt/conda/envs/myenv/bin:$PATH"
+
+%runscript
+	# Default command when running the container
+	exec "$@"

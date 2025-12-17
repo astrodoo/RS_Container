@@ -1,0 +1,11 @@
+name: myenv
+channels: 
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11.0
+  - numpy=1.23.5
+  - pandas
+  - pip
+  - pip:
+    - scipy==1.9.3
