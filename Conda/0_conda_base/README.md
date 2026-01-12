@@ -2,7 +2,7 @@
 
 ### set the tmp directory
 ```shell
-export APPTAINER_TMP=$HOME/Containers/tmp
+export APPTAINER_TMPDIR=$HOME/Containers/tmp
 ```
 
 ### add the flag -E to pass environment variable
